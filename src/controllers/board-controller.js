@@ -1,11 +1,11 @@
 const boardService = require ('../services/board-service');
 const express = require('express');
+const checkAuthHeader = require('../middlewares/auth-middleware');
 
 const router = express.Router();
-let defaultUserId = 10;
 
-router.get('/', async (req, res) => { 
-    const userId = req.header.user_id || defaultUserId;
+router.get('/', checkAuthHeader, async (req, res) => { 
+    const userId = req.user_id
     const board = await boardService.getBoard(userId);
     return res.json(board);
 });

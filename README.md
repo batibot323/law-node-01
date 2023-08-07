@@ -29,12 +29,12 @@ Let's review what they said about the requirements but supposedly it's the bare 
 Research how to insert jsonb.
 
 Done with most except auth, just going to use jwt_access_token and no signatures.
-- verify login
-- give jwt
-- ask for jwt as req.header
-- try authorization in get tasks
-- get user_id from jwt in request
-- use this in a middleware (stretch)
+- verify login - Done!
+- give jwt - Done!
+- ask for jwt as req.header - Done!
+- try authorization in get tasks - Done!
+- get user_id from jwt in request - Done!
+- use this in a middleware (stretch) - Done!
 
 # Requirements
 Setup a project with your programming language of choice and create an API for managing a TODO list with the following specification:
@@ -47,9 +47,9 @@ Usernames must be unique across all users - Done!
 
 Login
 
-The user should be able to log in with the credentials they provided in the register endpoint
+The user should be able to log in with the credentials they provided in the register endpoint - Done!
 
-Should return an access token that can be used for the other endpoints
+Should return an access token that can be used for the other endpoints - Done!
 
 The user should only be able to access their own tasks - Authorization
 
@@ -63,9 +63,9 @@ The user should be able to remove a task from the TODO list - DELETE
 
 The user should be able to reorder the tasks in the TODO list - POST (you have to change order of the other tasks, should have an `order` table instead of using `cards` table to order)
 
-A task in the TODO list should be able to handle being moved more than 50 times
+A task in the TODO list should be able to handle being moved more than 50 times - This should be done based on the design I've done.
 
-A task in the TODO list should be able to handle being moved to more than one task away from its current position
+A task in the TODO list should be able to handle being moved to more than one task away from its current position - This should be done based on the design I've done.
 
 
 # Thoughts
@@ -124,7 +124,7 @@ CREATE TABLE public.users (
 	"password" varchar NOT NULL,
 	user_name varchar NULL,
 	jwt_access_token varchar NULL,
-	CONSTRAINT users_pk null,
+	CONSTRAINT users_pk PRIMARY KEY (id),
 	CONSTRAINT users_un UNIQUE (user_name)
 );
 
