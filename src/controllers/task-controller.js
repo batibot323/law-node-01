@@ -3,7 +3,7 @@ const taskService = require('../services/task-service');
 const boardService = require('../services/board-service');
 
 const router = express.Router();
-let defaultUserId = 9;
+let defaultUserId = 10;
 
 router.get('/', (req, res) => {
   // Get userId from accessToken.
@@ -46,10 +46,10 @@ router.post('/', async(req, res) => {
   // Get userId from accessToken.
   const userId = req.header.user_id || defaultUserId;
   const task = await taskService.createTask(userId, req.body.name, req.body.description);
-  // TODO: Update db table `board` by appending this newly-created task at the last position.
+  await boardService.appendTask(userId, task);
   res.json(task);
 });
-
+  
 router.post('/move', async(req, res) => {
   // Get userId from accessToken.
   const userId = req.header.user_id || defaultUserId;
@@ -60,9 +60,7 @@ router.post('/move', async(req, res) => {
   } catch (err) {
       console.log(err); 
   }
-  // TODO: Update db table `board` with the new `tasks` array.
-  // taskService.getTasksFromUser(userId).then((tasks) => {res.json(tasks)});
-  res.json(tasks);
+  res.json(updatedTasks);
 });
 
 module.exports = router;

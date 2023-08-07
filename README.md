@@ -13,18 +13,28 @@
   - Auth - Login
   - Tasks
     - Get all tasks from user - Done!
-	- Create - 80%
-	- Move - 80%
+	- Create - Done!
+	- Move - Done!
 	- Update - Done!
 	- Delete - Done!
 - Setup dev env
-- Initial coding of `Tasks` endpoints
+- Initial coding of `Tasks` endpoints - Done!
 - Auth - Register + Login
 
 Nice-to-haves
 - Create Docker so they can run anywhere
 
 Let's review what they said about the requirements but supposedly it's the bare minimum, and this is just for coding assessment. Let's just give the DB Schemas in the form SQL queries so it can be recreated.
+
+Research how to insert jsonb.
+
+Done with most except auth, just going to use jwt_access_token and no signatures.
+- verify login
+- give jwt
+- ask for jwt as req.header
+- try authorization in get tasks
+- get user_id from jwt in request
+- use this in a middleware (stretch)
 
 # Requirements
 Setup a project with your programming language of choice and create an API for managing a TODO list with the following specification:

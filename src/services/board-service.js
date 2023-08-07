@@ -2,7 +2,7 @@ const db = require ('../db/index.js');
 
 class BoardService {
     async createBoard(userId) {
-        const text = 'INSERT INTO boards(user_id) VALUES($1) RETURNING *';
+        const text = `INSERT INTO boards(user_id, tasks) VALUES($1, '{}') RETURNING *`;
         const values = [userId];
         let res;
 
@@ -19,27 +19,33 @@ class BoardService {
         return res.rows[0];
     }
 
+    async appendTask(userId, task) {
+        const taskJson = JSON.stringify(task);
+        const text = `
+          UPDATE boards
+          SET tasks = tasks || $1
+          WHERE user_id = $2
+          RETURNING *;
+        `;
+        const values = [taskJson, userId];
+        const res = await db.query(text, values);
+        return res.rows[0];
+    }
+
     // With TS, we can reduce our parameter numbers by using an object.
     async reorderTasks(id, tasks, taskId, position) {
-        const taskIndex = tasks.indexOf(taskId);
-
-        // If the task is already at the desired position, return the original task order
+        const taskIndex = tasks.findIndex(task => task.id == taskId);
         if (taskIndex === position) {
           return tasks;
         }
-      
-        // Remove the task from its current position in the array
-        tasks.splice(taskIndex);
-      
-        // Insert the task at its new position in the array
-        tasks.splice(position, 0, taskId);
-      
-        // Update db table `board` with the new `tasks` array.
+        
+        // splice returns an array of the single, removed element.
+        const task = tasks.splice(taskIndex, 1)[0];
+        tasks.splice(position, 0, task);
+
         const text = 'UPDATE boards SET tasks = $1 WHERE id = $2 RETURNING *';
-        const values = [tasks, id];
+        const values = [JSON.stringify(tasks), id];
         await db.query(text, values);
-      
-        // Return the updated task order
         return tasks;
     }
 }
