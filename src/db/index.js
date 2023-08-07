@@ -9,7 +9,7 @@ class MyPool {
             password: 'AwitSakit',
             port: 5432, // default PostgreSQL port
         });
-    }   
+    }
 
     query = (text, params) => this.pool.query(text, params);
 
