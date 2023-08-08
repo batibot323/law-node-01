@@ -35,6 +35,9 @@ class BoardService {
     // With TS, we can reduce our parameter numbers by using an object.
     async reorderTasks(id, tasks, taskId, position) {
         const taskIndex = tasks.findIndex(task => task.id == taskId);
+        if (taskIndex === -1) { 
+            return { error: `can't find task`, error_code: `XXX` };
+        }
         if (taskIndex === position) {
           return tasks;
         }
@@ -47,6 +50,16 @@ class BoardService {
         const values = [JSON.stringify(tasks), id];
         await db.query(text, values);
         return tasks;
+    }
+
+    async deleteTask(userId, taskId) {
+        const { tasks } = await this.getBoard(userId);
+        const taskIndex = tasks.findIndex(task => task.id == taskId);
+        tasks.splice(taskIndex, 1);
+
+        const text = 'UPDATE boards SET tasks = $1 WHERE user_id = $2';
+        const values = [JSON.stringify(tasks), userId];
+        await db.query(text, values);
     }
 }
 

@@ -11,10 +11,16 @@ router.get('/', (req, res) => {
 router.post('/', async (req, res) => {
   console.log(req);
   const {user_name: userName, password} = req.body;
-  const resp = await userService.createUser(userName, password);
+  let resp;
+  try {
+    resp = await userService.createUser(userName, password);
+  } catch (err) { 
+    console.log(err);
+    res.statusMessage = "username already exists.";
+    return res.status(409).end();
+  }
   const user = resp.rows[0]
   await boardService.createBoard(user.id);
-  // TODO: We shouldn't return full user.
   res.json(user);
 });
 

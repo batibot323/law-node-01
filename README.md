@@ -1,73 +1,55 @@
 # TODO
-- Setup Node + Express + JS - Done!
-- Setup DB - Done!
-- Connect DB to Node - Done!
-  - Clean up db layer - Done!
-  - Manually populate db tables with data - Done!
-  - GET /tasks - Done!
-  - GET /board:id
-  - POST /tasks
-- Features
-  - Users - Create - Done!
-    - Create board for that user
-  - Auth - Login
-  - Tasks
-    - Get all tasks from user - Done!
-	- Create - Done!
-	- Move - Done!
-	- Update - Done!
-	- Delete - Done!
-- Setup dev env
-- Initial coding of `Tasks` endpoints - Done!
-- Auth - Register + Login
+- **Look at error handling**
+- Update `README.md`.
+- openapi-validator would be good, but can't make it work now
+  - Add top-level error handler to default returning error `500` whenever there's an unhandled error
+- Focus on returning proper error codes
+- Screen record
+- Add things you could add, if you've committed more time
+- API Validation would be nice but I deferred it
+- Linting would be nice
 
-Nice-to-haves
-- Create Docker so they can run anywhere
+**Nice to Haves**
+- Docker
 
-Let's review what they said about the requirements but supposedly it's the bare minimum, and this is just for coding assessment. Let's just give the DB Schemas in the form SQL queries so it can be recreated.
-
-Research how to insert jsonb.
-
-Done with most except auth, just going to use jwt_access_token and no signatures.
-- verify login - Done!
-- give jwt - Done!
-- ask for jwt as req.header - Done!
-- try authorization in get tasks - Done!
-- get user_id from jwt in request - Done!
-- use this in a middleware (stretch) - Done!
-
-# Requirements
+## Requirements
 Setup a project with your programming language of choice and create an API for managing a TODO list with the following specification:
 
 Register
 
-The user should be able to register with a username and password - Done!
+The user should be able to register with a username and password - `POST /users`
 
-Usernames must be unique across all users - Done!
+Usernames must be unique across all users - *Handled by DB UNIQUE constraint*
 
 Login
 
-The user should be able to log in with the credentials they provided in the register endpoint - Done!
+The user should be able to log in with the credentials they provided in the register endpoint - `POST /auth/login`
 
-Should return an access token that can be used for the other endpoints - Done!
+Should return an access token that can be used for the other endpoints - `POST /auth/login`
 
-The user should only be able to access their own tasks - Authorization
+TODO List
 
-The user should be able to list all tasks in the TODO list - GET List
+The user should only be able to access their own tasks - Authorization - *handled by `auth-middleware.js`*
 
-The user should be able to add a task to the TODO list - POST
+The user should be able to list all tasks in the TODO list - GET List - `GET /tasks`
 
-The user should be able to update the details of a task in their TODO list - PUT
+The user should be able to add a task to the TODO list - POST - `POST /tasks`
 
-The user should be able to remove a task from the TODO list - DELETE
+The user should be able to update the details of a task in their TODO list - PUT - `PUT /tasks/:id`
 
-The user should be able to reorder the tasks in the TODO list - POST (you have to change order of the other tasks, should have an `order` table instead of using `cards` table to order)
+The user should be able to remove a task from the TODO list - DELETE - `DELETE /tasks:id`
 
-A task in the TODO list should be able to handle being moved more than 50 times - This should be done based on the design I've done.
+The user should be able to reorder the tasks in the TODO list - POST (you have to change order of the other tasks, should have an order table instead of using cards table to order) `POST /tasks/move`
 
-A task in the TODO list should be able to handle being moved to more than one task away from its current position - This should be done based on the design I've done.
+A task in the TODO list should be able to handle being moved more than 50 times - *Handled by our design, see Reordering Tasks section*
 
+A task in the TODO list should be able to handle being moved to more than one task away from its current position - *Handled by our design, see Reordering Tasks section*
 
+Return proper errors with corresponding HTTP codes - I still default to 200, might need API validation. Showed that I know how to use proper error codes but this can still be improved by returning an error JSON in all the endpoints.
+
+Note: You can think of this as an API endpoint that will be used to handle the drag and drop feature of a TODO list application.
+
+All endpoints should return JSON responses.
 # Thoughts
 **Note: You can think of this as an API endpoint that will be used to handle the drag and drop feature of a TODO list application.** I'm assuming the board just shows you the card name and you'll have to click on a card to show more details.
 

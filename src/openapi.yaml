@@ -1,0 +1,182 @@
+openapi: 3.0.0
+info:
+  title: node-01
+  version: 1.0.0
+servers:
+  - url: localhost://3000
+paths:
+  /users:
+    post:
+      tags:
+        - default
+      summary: Create User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_name:
+                  type: string
+                password:
+                  type: string
+              example:
+                user_name: sabrinaho1
+                password: password123
+              required:
+                - user_name
+                - password
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /auth/login:
+    post:
+      tags:
+        - default
+      summary: Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                user_name: donatello
+                password: weak
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks:
+    get:
+      tags:
+        - default
+      summary: Get Tasks
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsImlhdCI6MTY5MTQyNzYzNiwiZXhwIjoxNjkxNDMxMjM2fQ.aXIMl0prwp5yTtJ3upwcxtILT6EzD_j770APZKZqa0w
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - default
+      summary: Create Task
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Play
+                description: Shoot some hoops
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkxNDI4ODc3LCJleHAiOjE2OTE0MzI0Nzd9.Y2HzqVC2q5aHZaypAEL1l1JhDu4yIx_xzVG8pBmdSiA
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/move:
+    post:
+      tags:
+        - default
+      summary: Move
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id: 2
+                position: 0
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkxNDI4ODc3LCJleHAiOjE2OTE0MzI0Nzd9.Y2HzqVC2q5aHZaypAEL1l1JhDu4yIx_xzVG8pBmdSiA
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /tasks/:id:
+    put:
+      tags:
+        - default
+      summary: Update Task
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id: 1
+                name: Run
+                description: Walk Sunken
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkxNDI4ODc3LCJleHAiOjE2OTE0MzI0Nzd9.Y2HzqVC2q5aHZaypAEL1l1JhDu4yIx_xzVG8pBmdSiA
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - default
+      summary: Delete Task
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkxNDI4ODc3LCJleHAiOjE2OTE0MzI0Nzd9.Y2HzqVC2q5aHZaypAEL1l1JhDu4yIx_xzVG8pBmdSiA
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /boards:
+    get:
+      tags:
+        - default
+      summary: Get Board
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: >-
+            Bearer
+            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjkxNDI4ODc3LCJleHAiOjE2OTE0MzI0Nzd9.Y2HzqVC2q5aHZaypAEL1l1JhDu4yIx_xzVG8pBmdSiA
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

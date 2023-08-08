@@ -7,7 +7,7 @@ const SECRET_KEY = 'super-secret-key';
 module.exports = function checkAuthHeader(req, res, next) {
     const authHeader = req.header('Authorization');
     if (!authHeader) {
-      return res.status(401).json({ error: 'Authorization header missing' });
+      return res.status(401).json({ error: 'authorization header missing' });
     }
     const accessToken = authHeader.split(' ')[1];
     try {
@@ -15,6 +15,6 @@ module.exports = function checkAuthHeader(req, res, next) {
       req.user_id = decoded.id;
       next();
     } catch (err) {
-      return res.status(401).json({ error: 'Invalid access token' });
+      return res.status(401).json({ error: 'invalid access token' });
     }
   }
