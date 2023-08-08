@@ -1,17 +1,16 @@
-# TODO
+# Nice to Haves
 - **Look at error handling**
 - Update `README.md`.
 - openapi-validator would be good, but can't make it work now
   - Add top-level error handler to default returning error `500` whenever there's an unhandled error
-- Focus on returning proper error codes
+- Focus on returning proper error codes - Done!
 - Screen record
 - Add things you could add, if you've committed more time
 - API Validation would be nice but I deferred it
 - Linting would be nice
-
-**Nice to Haves**
+- Unit tests would be good but Postman collection should suffice.
+- Postman collection should be improved by using *Pre-request Script* and *Tests*
 - Docker
-
 ## Requirements
 Setup a project with your programming language of choice and create an API for managing a TODO list with the following specification:
 
